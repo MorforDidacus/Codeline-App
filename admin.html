@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Upload Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+      display: none;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 20px auto;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #66BB6A, #388E3C);
+    }
+
+    .loading-dots {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .loading-dots span {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 3px;
+      background-color: red;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite;
+    }
+
+    .loading-dots span:nth-child(2) {
+      background-color: blue;
+      animation-delay: 0.2s;
+    }
+
+    .loading-dots span:nth-child(3) {
+      background-color: green;
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      0%, 80%, 100% {
+        transform: scale(0);
+      }
+      40% {
+        transform: scale(1);
+      }
+    }
+
+    /* Passkey Modal */
+    #passkeyModal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #passkeyModal div {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #passkeyInput {
+      width: 80%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #submitPasskey {
+      margin-top: 15px;
+      background: #2196F3;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #submitPasskey:hover {
+      background: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+  <div id="passkeyModal">
+    <div>
+      <h2>Enter Admin Passkey</h2>
+      <input type="password" id="passkeyInput" placeholder="Enter passkey..." />
+      <br />
+      <button id="submitPasskey">Enter</button>
+    </div>
+  </div>
+
+  <div class="card" id="adminCard">
+    <h2>Upload Document / Image</h2>
+    <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" />
+    <button class="btn" onclick="uploadFile()">Upload</button>
+    <div class="loading-dots" id="loadingDots">
+      <span></span><span></span><span></span>
+    </div>
+    <div id="response" style="margin-top:20px;color:green;"></div>
+  </div>
+
+  <script>
+    const PASSKEY = 'dream123'; // Set your passkey here
+
+    // Handle passkey checking
+    const passkeyModal = document.getElementById('passkeyModal');
+    const adminCard = document.getElementById('adminCard');
+    const submitPasskey = document.getElementById('submitPasskey');
+
+    submitPasskey.onclick = function () {
+      const input = document.getElementById('passkeyInput').value;
+      if (input === PASSKEY) {
+        passkeyModal.style.display = 'none';
+        adminCard.style.display = 'block';
+      } else {
+        alert('Incorrect Passkey!');
+      }
+    };
+
+    function uploadFile() {
+      const fileInput = document.getElementById('fileInput');
+      const loadingDots = document.getElementById('loadingDots');
+      const responseDiv = document.getElementById('response');
+
+      if (fileInput.files.length === 0) {
+        alert('Please select a file first.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+
+      loadingDots.style.display = 'block';
+      responseDiv.innerHTML = '';
+
+      fetch('http://dreamtech.ct.ws/upload.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.text())
+      .then(data => {
+        loadingDots.style.display = 'none';
+        responseDiv.innerHTML = data;
+        fileInput.value = '';
+      })
+      .catch(err => {
+        loadingDots.style.display = 'none';
+        responseDiv.innerHTML = 'Upload failed!';
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

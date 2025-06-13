@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#333333">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .team-member {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .team-member:hover {
+      transform: scale(1.05);
+    }
+
+    .team-member img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .team-member-info {
+      padding: 20px;
+    }
+
+    .team-member-info h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .team-member-info p {
+      font-size: 1rem;
+      color: #777;
+    }
+
+    .team-member-info span {
+      font-weight: bold;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Meet Our Team</h1>
+    <p>We are a group of dedicated professionals who bring the best to the table</p>
+  </div>
+
+  <div class="team-container">
+    <div class="team-member">
+      <img src="morfor.jpg" alt="Team Member 1">
+      <div class="team-member-info">
+        <h3>Morfor Didacus</h3>
+        <p><span>CEO</span></p>
+        <p>Morfor leads our team with passion and a commitment to delivering excellence.</p>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="eugene.png" alt="Team Member 2">
+      <div class="team-member-info">
+        <h3>Tendogmoh Eugene</h3>
+        <p><span>CTO</span></p>
+        <p>Eugene is the tech visionary, ensuring we stay ahead of the curve with cutting-edge solutions.</p>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="romeo.png" alt="Team Member 3">
+      <div class="team-member-info">
+        <h3>M Romeo</h3>
+        <p><span>Lead Designer</span></p>
+        <p>Romeo brings creative designs that elevate our projects and user experiences.</p>
+      </div>
+    </div>
+
+    <div class="team-member">
+      <img src="queen.png" alt="Team Member 4">
+      <div class="team-member-info">
+        <h3>Tengungwoh Stellaqueen</h3>
+        <p><span>Marketing Director</span></p>
+        <p>Queen develops strategies that engage and build strong relationships with our audience.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
